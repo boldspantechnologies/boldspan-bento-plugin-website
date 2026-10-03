@@ -1,26 +1,87 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f6f7f9;
+  --ink: #0d0d0d;
+  --mute: #6b7370;
+  --line: #e5e7eb;
+  --green: #3560d8;
+  --orange: #6ea0f5;
+  --arch: #eaf0ff;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-brand: var(--green);
+  --color-hot: var(--orange);
+  --font-sans: var(--font-poppins);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-poppins), system-ui, sans-serif;
 }
+
+.wash {
+  background:
+    radial-gradient(60% 50% at 100% 0%, #dfe9ff 0%, transparent 70%),
+    radial-gradient(40% 40% at 85% 12%, #eaf1ff 0%, transparent 70%);
+}
+
+@keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+@keyframes spin-slow { to { transform: rotate(360deg) } }
+.bob { animation: bob 6s ease-in-out infinite; }
+.bob-2 { animation: bob 7.5s ease-in-out -2s infinite; }
+.spin-slow { animation: spin-slow 40s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bob, .bob-2, .spin-slow { animation: none; }
+  html { scroll-behavior: auto; }
+}
+
+.display { font-family: var(--font-poppins), system-ui, sans-serif; letter-spacing: -0.03em; }
+
+.demo { overflow: hidden; border-radius: 1.5rem; transition: transform .25s, box-shadow .25s; }
+.demo img, .demo .demo-in { transition: transform .4s; }
+.demo-lift:hover { transform: translateY(-8px); box-shadow: 0 18px 30px -12px rgba(0,0,0,.25); }
+.demo-zoom:hover .demo-in { transform: scale(1.15); }
+.demo-glow:hover { box-shadow: 0 0 0 3px #fff, 0 0 28px 6px rgba(53,96,216,.55); }
+@media (prefers-reduced-motion: reduce) { .demo, .demo .demo-in { transition: none; } }
+
+/* Bento demo */
+.bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 58px; gap: 12px; }
+.bt {
+  grid-column: var(--gc); grid-row: var(--gr);
+  display: flex; flex-direction: column; justify-content: space-between;
+  border-radius: 20px; padding: 18px; border: 1px solid rgba(0,0,0,.06);
+  animation: pop .45s cubic-bezier(.2,.8,.2,1) both; transition: transform .25s, box-shadow .25s;
+}
+.bt:hover { transform: translateY(-4px); box-shadow: 0 16px 28px -14px rgba(0,0,0,.35); }
+.bt:nth-child(2) { animation-delay: .04s } .bt:nth-child(3) { animation-delay: .08s } .bt:nth-child(4) { animation-delay: .12s }
+.bt:nth-child(5) { animation-delay: .16s } .bt:nth-child(n+6) { animation-delay: .2s }
+@keyframes pop { from { opacity: 0; transform: scale(.94) } to { opacity: 1; transform: none } }
+@media (max-width: 640px) {
+  .bento-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 52px; gap: 8px; }
+  .bt { grid-column: span 3; grid-row: span 2; padding: 12px; border-radius: 16px; }
+  .bt:first-child { grid-column: span 6; }
+}
+@media (prefers-reduced-motion: reduce) { .bt { animation: none; transition: none; } }
+
+.glow-top { background: radial-gradient(60% 70% at 50% 0%, #dbe6ff 0%, rgba(246,247,249,0) 70%); }
+
+/* Pro effect demos */
+.gborder { background: linear-gradient(90deg,#3560d8,#ff8fe0,#6fe8ff,#3560d8); background-size: 300% 100%; transition: box-shadow .3s; }
+.gborder:hover { animation: gshift 2.5s linear infinite; box-shadow: 0 0 28px 2px rgba(111,232,255,.45); }
+@keyframes gshift { to { background-position: 300% 0 } }
+.spot::before {
+  content: ""; position: absolute; inset: 0; opacity: 0; transition: opacity .25s; pointer-events: none;
+  background: radial-gradient(circle 150px at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.4), transparent 70%);
+}
+.spot:hover::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .gborder:hover { animation: none; } }

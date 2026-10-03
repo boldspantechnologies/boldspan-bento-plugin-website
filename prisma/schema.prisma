@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model License {
+  id          String       @id @default(uuid())
+  key         String       @unique // BENTO-XXXX-XXXX-XXXX
+  email       String
+  name        String       @default("")
+  plan        String
+  maxSites    Int? // null = unlimited
+  status      String       @default("active") // active | revoked
+  expiresAt   DateTime? // null = lifetime
+  source      String       @default("manual") // purchase | manual | early_access
+  note        String       @default("")
+  createdAt   DateTime     @default(now())
+  activations Activation[]
+
+  @@index([email])
+}
+
+model Activation {
+  id            String    @id @default(uuid())
+  licenseId     String
+  license       License   @relation(fields: [licenseId], references: [id], onDelete: Cascade)
+  siteId        String // normalised host + path
+  siteUrl       String    @default("")
+  siteName      String    @default("")
+  environment   String    @default("")
+  isDev         Boolean   @default(false) // free dev site, uses no slot
+  tokenHash     String // sha256 of the token given to the plugin
+  pluginVersion String    @default("")
+  wpVersion     String    @default("")
+  activatedAt   DateTime  @default(now())
+  lastCheckAt   DateTime?
+  deactivatedAt DateTime?
+
+  @@index([licenseId, siteId])
+}
+
+model EarlyAccessRequest {
+  id        String   @id @default(uuid())
+  email     String
+  reason    String
+  status    String   @default("pending") // pending | approved | rejected
+  licenseId String? // set once a key has been issued
+  createdAt DateTime @default(now())
+
+  @@index([status, createdAt])
+}
