@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMeta } from "../site";
 import { Legal } from "../Legal";
 
-export const metadata: Metadata = { title: "Refund policy | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/refund-policy");
 
 export default function Refunds() {
   return (

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { site } from "../site";
+import { site, pageMeta } from "../site";
 import { PageHead, btnDark, btnLight, wrap } from "../ui";
 
-export const metadata: Metadata = { title: "About | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/about");
 
 const principles = [
   { h: "Simple", p: "A visual editor anyone can use. No code needed to build a modern layout." },

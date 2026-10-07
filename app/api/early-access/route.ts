@@ -19,8 +19,8 @@ export async function POST(request: Request) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 200) {
     return Response.json({ error: "Please enter a valid email address." }, { status: 400 });
   }
-  if (reason.length < 5 || reason.length > 1500) {
-    return Response.json({ error: "Please tell us briefly why you want it." }, { status: 400 });
+  if (reason.length > 1500) {
+    return Response.json({ error: "Your answer is too long (1500 characters max)." }, { status: 400 });
   }
 
   // Keep a copy for the admin dashboard. A DB problem must not block the Discord alert.
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
           color: 0x3560d8,
           fields: [
             { name: "Email", value: email },
-            { name: "Why they want it", value: reason },
+            { name: "Why they want it", value: reason || "(not provided)" },
           ],
           timestamp: new Date().toISOString(),
         },

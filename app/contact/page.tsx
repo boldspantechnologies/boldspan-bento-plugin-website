@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { site } from "../site";
+import { site, pageMeta } from "../site";
 import { PageHead, btnDark, wrap } from "../ui";
 
-export const metadata: Metadata = { title: "Contact | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/contact");
 
 export default function Contact() {
   return (

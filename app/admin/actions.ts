@@ -108,7 +108,7 @@ export async function approveRequest(form: FormData) {
       plan: "personal",
       expiresAt: addDays(null, 365),
       source: "early_access",
-      note: `Early access: ${req.reason}`.slice(0, 500),
+      note: `Early access: ${req.reason || "-"}`.slice(0, 500),
     });
     await tx.earlyAccessRequest.update({ where: { id: req.id }, data: { status: "approved", licenseId: lic.id } });
   }, { maxWait: 10_000, timeout: 15_000 });

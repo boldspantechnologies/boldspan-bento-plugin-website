@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
 import { PricingPlans } from "../PricingPlans";
-import { faq } from "../site";
+import { allFaq, pageMeta, siteUrl, tiers } from "../site";
+import { JsonLd } from "../JsonLd";
 import { Faq, PageHead, wrap } from "../ui";
 
-export const metadata: Metadata = { title: "Pricing | BoldSpan Bento Grid Pro" };
+export const metadata: Metadata = pageMeta("/pricing");
 
 export default function Pricing() {
   return (
     <main>
+      <JsonLd data={[
+        { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: allFaq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
+        { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: siteUrl }, { "@type": "ListItem", position: 2, name: "Pricing", item: `${siteUrl}/pricing` }] },
+        ...tiers.map((t) => ({ "@context": "https://schema.org", "@type": "Product", name: `BoldSpan Bento Grid Pro, ${t.name} (${t.sites})`, description: `Bento Grid Pro licence for ${t.sites}.`, brand: { "@type": "Brand", name: "BoldSpan" }, offers: { "@type": "Offer", price: t.price.monthly, priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${siteUrl}/pricing` } })),
+      ]} />
       <PageHead
         title="Start free."
         accent="Upgrade when ready."
@@ -29,7 +35,7 @@ export default function Pricing() {
 
       <section className={`${wrap} pb-24`}>
         <h2 className="mb-8 text-3xl font-semibold tracking-tight">Questions</h2>
-        <Faq items={faq} />
+        <Faq items={allFaq} />
       </section>
     </main>
   );

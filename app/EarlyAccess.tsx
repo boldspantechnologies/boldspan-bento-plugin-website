@@ -72,15 +72,15 @@ export function EarlyAccessButton({ className }: { className?: string }) {
             ) : (
               <form onSubmit={submit}>
                 <h3 id="ea-title" className="text-2xl font-semibold tracking-tight">Get 1 year of Pro early access</h3>
-                <p className="mt-2 text-sm text-mute">Personal plan, 1 site. Tell us who you are and why you would use it.</p>
+                <p className="mt-2 text-sm text-mute">Personal plan, 1 site. Tell us who you are, and optionally why you would use it.</p>
 
                 <label className="mt-6 block text-sm font-medium">
                   Email address
                   <input ref={emailRef} type="email" required maxLength={200} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" className={field} />
                 </label>
                 <label className="mt-4 block text-sm font-medium">
-                  Why do you want to use it?
-                  <textarea required minLength={5} maxLength={1500} rows={4} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="What will you build with it?" className={field} />
+                  Why do you want to use it? <span className="text-mute">(optional)</span>
+                  <textarea maxLength={1500} rows={4} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="What will you build with it?" className={field} />
                 </label>
                 <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" value={website} onChange={(e) => setWebsite(e.target.value)} className="hidden" />
 

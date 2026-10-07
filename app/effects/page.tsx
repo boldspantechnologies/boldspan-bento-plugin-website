@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { pageMeta } from "../site";
 import Link from "next/link";
 import { ProEffects } from "../ProEffects";
 import { Badge, PageHead, btn, wrap } from "../ui";
 
-export const metadata: Metadata = { title: "Effects | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/effects");
 
 const freeFx = [
   { cls: "demo-lift", name: "Lift", text: "The tile rises slightly on hover.", bg: "bg-brand text-white" },

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMeta } from "../site";
 import { Legal } from "../Legal";
 
-export const metadata: Metadata = { title: "Terms | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/terms");
 
 export default function Terms() {
   return (

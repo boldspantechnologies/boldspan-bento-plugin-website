@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Videos } from "../Videos";
-import { videos } from "../site";
+import { videos, pageMeta } from "../site";
 import { PageHead, wrap } from "../ui";
 
-export const metadata: Metadata = { title: "Videos | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/videos");
 
 export default function VideosPage() {
   return (

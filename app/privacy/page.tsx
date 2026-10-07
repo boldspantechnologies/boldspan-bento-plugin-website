@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
+import { pageMeta } from "../site";
 import { Legal } from "../Legal";
 
-export const metadata: Metadata = { title: "Privacy | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/privacy");
 
 export default function Privacy() {
   return (

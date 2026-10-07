@@ -102,3 +102,45 @@ export const faq: [string, string][] = [
   ["Will it slow my site down?", "The Free output is static, cache-friendly markup with no jQuery. The stylesheet only loads on pages that render a grid."],
 ];
 
+
+// Canonical origin. Set NEXT_PUBLIC_SITE_URL in Vercel if the domain differs.
+export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://boldspan.tech").replace(/\/$/, "");
+
+export const siteDescription =
+  "BoldSpan Bento Grid is a WordPress bento grid plugin for Gutenberg and Elementor. Build responsive bento box layouts in minutes with 26 layout presets, hover effects and scroll reveals. Free plugin, Pro from $5/month.";
+
+// Public, indexable pages. Drives sitemap.xml and llms.txt.
+export const pages: { path: string; title: string; description: string; priority: number }[] = [
+  { path: "/", title: "BoldSpan Bento Grid: Bento Grid Plugin for WordPress", description: siteDescription, priority: 1 },
+  { path: "/features", title: "Features: Bento Grid Layouts, Effects & Blocks for WordPress", description: "Everything in the BoldSpan Bento Grid WordPress plugin: responsive bento layouts, colours, gradients, glass tiles, hover effects, scroll reveals, Gutenberg and Elementor support.", priority: 0.9 },
+  { path: "/pricing", title: "Pricing: Bento Grid Pro for WordPress from $5/month", description: "Bento Grid Pro pricing. Monthly, annual and lifetime licences for 1, 5 or 20 WordPress sites. 30-day refund policy. The core plugin is free.", priority: 0.9 },
+  { path: "/layouts", title: "Bento Grid Layouts: 26 Presets for 2 to 12 Tiles", description: "Browse every bento grid layout preset: split, hero focus, masonry, magazine, gallery wall, dashboard and even grids from 2 to 12 tiles.", priority: 0.8 },
+  { path: "/effects", title: "Bento Grid Hover Effects & Scroll Animations", description: "Lift, image zoom, glow, 3D tilt, reveal, border glow and spotlight hover effects, plus fade, slide and zoom scroll reveals for WordPress bento grids.", priority: 0.8 },
+  { path: "/docs", title: "Documentation: How to Build a Bento Grid in WordPress", description: "Install the plugin, pick a layout, fill the tiles and publish. Step-by-step docs for Gutenberg and Elementor, plus Pro licence activation.", priority: 0.8 },
+  { path: "/videos", title: "Video Tutorials: Bento Grid for WordPress", description: "Video walkthroughs: installing, layouts and presets, hover effects, scroll reveals, Elementor and activating Pro.", priority: 0.5 },
+  { path: "/about", title: "About BoldSpan", description: "BoldSpan builds focused WordPress plugins. Learn about the team behind the BoldSpan Bento Grid plugin.", priority: 0.5 },
+  { path: "/contact", title: "Contact & Support", description: "Contact BoldSpan for support, licence questions or refunds on the Bento Grid WordPress plugin.", priority: 0.5 },
+  { path: "/privacy", title: "Privacy Policy", description: "How BoldSpan handles your data.", priority: 0.2 },
+  { path: "/terms", title: "Terms of Service", description: "Terms of service for the BoldSpan Bento Grid plugin and licences.", priority: 0.2 },
+  { path: "/refund-policy", title: "Refund Policy: 30-Day Money Back", description: "BoldSpan Bento Grid Pro has a 30-day refund policy. Here is how to request one.", priority: 0.3 },
+];
+
+export const pageMeta = (path: string) => {
+  const p = pages.find((x) => x.path === path)!;
+  return {
+    title: { absolute: p.title },
+    description: p.description,
+    alternates: { canonical: path },
+    openGraph: { title: p.title, description: p.description, url: path },
+  };
+};
+
+// Extra FAQs aimed at common search queries. Merged with `faq` for FAQPage JSON-LD and the FAQ sections.
+export const seoFaq: [string, string][] = [
+  ["What is a bento grid in WordPress?", "A bento grid is a layout of tiles of different sizes arranged like a bento box, popular for feature sections, portfolios and landing pages. BoldSpan Bento Grid lets you build one in WordPress without writing CSS."],
+  ["What is the best bento grid plugin for WordPress?", "BoldSpan Bento Grid is a free WordPress bento grid plugin with 9 free layout presets, Gutenberg and Elementor support, and optional Pro features: 26 layouts, up to 12 tiles, glass tiles, hover effects and scroll reveals."],
+  ["Is there a free bento grid plugin for WordPress?", "Yes. The core BoldSpan Bento Grid plugin is free on WordPress.org and includes 2 to 5 tile grids, 9 layout presets, 9 block patterns, colours, gradients, borders and overlays."],
+  ["How do I create a bento grid in Gutenberg or Elementor?", "Install and activate BoldSpan Bento Grid, add the Bento Grid block or Elementor widget, choose a tile count and layout preset, fill each tile with an image and text, then publish."],
+];
+
+export const allFaq: [string, string][] = [...seoFaq, ...faq];

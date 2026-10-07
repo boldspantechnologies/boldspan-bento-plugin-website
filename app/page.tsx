@@ -3,7 +3,8 @@ import Link from "next/link";
 import { BentoDemo } from "./BentoDemo";
 import { Mini } from "./Mini";
 import { gallery } from "./bento-data";
-import { faq, site, steps } from "./site";
+import { allFaq, pageMeta, site, steps } from "./site";
+import { JsonLd } from "./JsonLd";
 import { Faq, btn, btnDark, btnLight, wrap } from "./ui";
 
 const facts = ["Gutenberg + Elementor", "Responsive by default", "No jQuery for Free effects", "WordPress 6.4+"];
@@ -23,9 +24,12 @@ function Check({ dark }: { dark?: boolean }) {
   );
 }
 
+export const metadata = pageMeta("/");
+
 export default function Home() {
   return (
     <main>
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: allFaq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) }} />
       {/* HERO */}
       <section className="glow-top">
         <div className={`${wrap} pb-20 pt-16 text-center sm:pt-24`}>
@@ -40,7 +44,7 @@ export default function Home() {
           </p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
             <a href={site.freeUrl} className={btnDark}>Get the free plugin</a>
-            <Link href="/pricing/" className={btnLight}>Go Pro for {site.price.pro}{site.price.unit}</Link>
+            <Link href="/pricing/" className={btnLight}>Get Pro for free</Link>
           </div>
 
           <div className="mx-auto mt-16 max-w-5xl text-left">
@@ -146,7 +150,7 @@ export default function Home() {
       </section>
 
       {/* FREE VS PRO */}
-      <section className="bg-white py-24">
+      <section id="pricing-section" data-track="Free & Pro section" className="bg-white py-24">
         <div className={wrap}>
           <div className="mx-auto max-w-2xl text-center">
             <Eyebrow>Free &amp; Pro</Eyebrow>
@@ -163,7 +167,7 @@ export default function Home() {
             </div>
             <div className="rounded-[28px] bg-brand p-8 text-white sm:p-12" style={{ background: "linear-gradient(145deg,#3560d8,#1d2b64)" }}>
               <p className="text-sm font-medium text-white/70">Pro</p>
-              <p className="mt-2 text-6xl font-semibold tracking-tight">{site.price.pro}<span className="text-xl font-medium text-white/60">{site.price.unit}</span></p>
+              <p className="mt-2 text-6xl font-semibold tracking-tight">Free</p>
               <ul className="mt-8 space-y-3 text-sm">
                 {proList.map((t) => (<li key={t} className="flex gap-3"><Check dark />{t}</li>))}
               </ul>
@@ -212,7 +216,7 @@ export default function Home() {
             <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl">Questions</h2>
             <p className="mt-4 text-mute">Or email <a href={`mailto:${site.email}`} className="text-brand underline underline-offset-4">{site.email}</a></p>
           </div>
-          <Faq items={faq} />
+          <Faq items={allFaq} />
         </div>
       </section>
 

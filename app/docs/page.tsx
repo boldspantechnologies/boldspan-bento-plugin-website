@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { site } from "../site";
+import { site, pageMeta } from "../site";
 import { PageHead, wrap } from "../ui";
 
-export const metadata: Metadata = { title: "Docs | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/docs");
 
 type Sec = { id: string; h: string; intro?: string; list?: string[]; ordered?: boolean; more?: { h: string; list: string[] }[] };
 

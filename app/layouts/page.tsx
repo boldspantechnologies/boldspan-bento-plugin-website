@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { presets, site } from "../site";
+import { presets, site, pageMeta } from "../site";
 import { Badge, PageHead, btnBrand, btnDark, wrap } from "../ui";
 
-export const metadata: Metadata = { title: "Layouts | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/layouts");
 
 export default function Layouts() {
   return (

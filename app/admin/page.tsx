@@ -118,7 +118,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
               <li key={r.id} className="flex flex-wrap items-start gap-x-4 gap-y-3 py-4">
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">{r.email} <span className="font-normal text-mute">· {date(r.createdAt)}</span></p>
-                  <p className="mt-1 whitespace-pre-wrap text-mute">{r.reason}</p>
+                  <p className="mt-1 whitespace-pre-wrap text-mute">{r.reason || "(no reason given)"}</p>
                 </div>
                 <div className="flex gap-2">
                   <form action={approveRequest}>{hidden(r.id)}<SubmitButton variant="primary">Approve · 1 year key</SubmitButton></form>

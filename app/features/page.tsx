@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { comingSoon, compare, site } from "../site";
+import { comingSoon, compare, site, pageMeta } from "../site";
 import { Badge, PageHead, btnBrand, btnDark, wrap } from "../ui";
 
-export const metadata: Metadata = { title: "Features | BoldSpan Bento Grid" };
+export const metadata: Metadata = pageMeta("/features");
 
 const blocks: { h: string; p: string; items: string[]; pro?: boolean }[] = [
   {
