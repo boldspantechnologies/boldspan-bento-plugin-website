@@ -1,4 +1,4 @@
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 // Prisma CLI does not load env files on its own.
 try {
@@ -9,5 +9,6 @@ export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: { path: "prisma/migrations" },
   // Migrations need Neon's direct (non-pooled) connection string when you have one.
-  datasource: { url: process.env.DIRECT_URL ? env("DIRECT_URL") : env("DATABASE_URL") },
+  // `generate` needs no database, so fall back to a placeholder when neither var is set (e.g. at build time).
+  datasource: { url: process.env.DIRECT_URL ?? process.env.DATABASE_URL ?? "postgresql://placeholder" },
 });
